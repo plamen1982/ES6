@@ -117,3 +117,22 @@ function postForComment(posts, comment) {
    * You could then check to see if a given element in the array had a property equal to the 
    * criteria's value with something like element[property] === criteria[property].
    */
+var criteria = {height: 20}
+
+var ladders = [
+    {id: 1, height: 20},
+    {id: 3, height: 25},
+];
+
+function findWhere(array, criteria) {
+    var currentPropFromCriteria = Object.keys(criteria)[0]
+    var result = array.find(function(item) {
+        return item[currentPropFromCriteria] === criteria[currentPropFromCriteria]
+    })
+    return result;
+}
+
+var result = findWhere(array, criteria) 
+
+console.log(result)
+    
