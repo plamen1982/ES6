@@ -107,3 +107,21 @@ function unique(array) {
 var uniqueArray = unique(numbers)
 
 console.log(uniqueArray)
+
+// Second solution.  Using the array helper includes
+
+function unique2(array) {
+    return array.reduce(function(uniqueArray, currentElement) {
+        if(uniqueArray.length === 0) {
+            uniqueArray.push(currentElement)
+        }
+        var isCurrValueExist = uniqueArray.includes(currentElement)
+        if(!isCurrValueExist) {
+            uniqueArray.push(currentElement)
+        }
+        return uniqueArray
+    }, [])
+}
+
+var uniqueArray2 = unique2(numbers)
+console.log(uniqueArray2)
