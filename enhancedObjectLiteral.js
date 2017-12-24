@@ -45,3 +45,5 @@ const bookShopEnhanced = createBookShopEnhanced(inventory);
 
 console.log(bookShopEnhanced.inventoryValue());
 console.log(bookShopEnhanced.findPriceForTitle('Harry Potter'));
+
+
