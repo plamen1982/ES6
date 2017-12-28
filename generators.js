@@ -66,6 +66,17 @@ console.log(myColors)
 
 //4. Delegation of generator
 //Practical use case
+//5. Generators with Symbol.iterator
+const testingTeam = {
+    lead: 'Amanda',
+    tester: 'Bill',
+    //Symbol.iterator is a tool that teaches objects how to respond the for of loop to fall
+    [Symbol.iterator]: function* () {
+        yield this.lead;
+        yield this.tester
+    }
+}
+
 const engineeringTeam = { 
     testingTeam,    //reference to the testingTeam object -> testingTeam: testingTeam
     size: 3, 
@@ -73,30 +84,17 @@ const engineeringTeam = {
     lead: 'Jil',
     manager: 'Alex',
     engineer: 'Dave',
-
-}
-
-const testingTeam = {
-    lead: 'Amanda',
-    tester: 'Bill',
-    //Symbol.iterator is a tool that teaches objects how to respond the for of loop
     [Symbol.iterator]: function* () {
         yield this.lead;
-        yield this.tester
+        yield this.manager;
+        yield this.engineer;
+        yield* this.testingTeam
     }
 }
 
-function* TeamIterator(team) {
-    yield team.lead;
-    yield team.manager;
-    yield team.engineer;
-    yield* testingTeam.testingTeam; //yield* will cause the for loop to fall in iteration 
-    //over team.testingTeam then is going to look for [Symbol.iterator]: and it will use the generator inside
-    //for iteration
-}
 
 const names = [];
-for (let name of TeamIterator(engineeringTeam)) {
+for (let name of engineeringTeam) {
     names.push(name)
 }
 console.log(names)
@@ -105,4 +103,3 @@ console.log(names)
 
 
 
-//5. Generators with Symbol.iterator
