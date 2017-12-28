@@ -78,21 +78,21 @@ const engineeringTeam = {
 
 const testingTeam = {
     lead: 'Amanda',
-    tester: 'Bill'
+    tester: 'Bill',
+    //Symbol.iterator is a tool that teaches objects how to respond the for of loop
+    [Symbol.iterator]: function* () {
+        yield this.lead;
+        yield this.tester
+    }
 }
 
 function* TeamIterator(team) {
     yield team.lead;
     yield team.manager;
     yield team.engineer;
-    const testingTeamGenerator = TestingTeamIterator(team.testingTeam); //creating generator
-    yield* testingTeamGenerator; //yield* is used when we have more than one yield in the generator 
-//(in this case testingTeamGenerator)
-}
-
-function* TestingTeamIterator(team) {
-    yield team.lead;
-    yield team.tester;
+    yield* testingTeam.testingTeam; //yield* will cause the for loop to fall in iteration 
+    //over team.testingTeam then is going to look for [Symbol.iterator]: and it will use the generator inside
+    //for iteration
 }
 
 const names = [];
