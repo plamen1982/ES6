@@ -99,7 +99,33 @@ for (let name of engineeringTeam) {
 }
 console.log(names)
 
-//Engineering Team -> Lead, Manager, Engineer; Testing Team -> Lead, Tester
+//Generators with Recursion
 
+class Comment {
+    constructor(content, children) {
+        this.content = content;
+        this.children = children;
+    }
 
+    *[Symbol.iterator]() {
+        yield this.content;
+        //array helper methods does not work with generators so we using for of loop!
+        for(let child of this.children) {
+            yield* child
+        }
+    }
+}
 
+const children = [
+    new Comment('good comment', []),
+    new Comment('bad comment', []),
+    new Comment('meh', [])
+];
+
+const tree = new Comment('Great post!', children);
+
+const values = [];
+for (let value of tree) {
+    values.push(value);
+}
+console.log(values);
